@@ -5,6 +5,31 @@ const HTML_HEADERS = {
   "x-content-type-options": "nosniff"
 };
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+
+function escapeHtml(value) {
+  return value.replace(/[&<>"']/g, character => ESCAPES[character]);
+}
+
+async function credentials(request) {
+  let values;
+  try {
+    values = await request.formData();
+  } catch {
+    return null;
+  }
+
+  const username = values.get("username");
+  const email = values.get("email");
+  if (typeof username !== "string" || typeof email !== "string") return null;
+
+  const normalized = { username: username.trim(), email: email.trim() };
+  if (!normalized.username || normalized.username.length > 50) return null;
+  if (normalized.email.length > 254 || !EMAIL_PATTERN.test(normalized.email)) return null;
+  return normalized;
+}
+
 function page(content, title = "Đăng nhập") {
   return `<!doctype html>
 <html lang="vi">
@@ -36,10 +61,20 @@ function formPage() {
 </form>`);
 }
 
+async function loginPage(request) {
+  const input = await credentials(request);
+  if (!input) {
+    return html(`<h1>Thông tin không hợp lệ</h1><a class="link" href="/">Thử lại</a>`, 400);
+  }
+
+  return html(`<h1>Xin chào ${escapeHtml(input.username)}, email: ${escapeHtml(input.email)}</h1>`);
+}
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
     if (request.method === "GET" && url.pathname === "/") return formPage();
+    if (request.method === "POST" && url.pathname === "/login") return loginPage(request);
     return new Response("Không tìm thấy", { status: 404 });
   }
 };
