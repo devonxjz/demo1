@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="card">
+    <h1>Đăng nhập</h1>
+    <p>Nhập tên đăng nhập và email để tiếp tục.</p>
+
+    <form method="post" action="/login">
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" name="username" maxlength="50" autocomplete="username" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required>
+
+        <button type="submit">Đăng nhập</button>
+    </form>
+</main>
+</body>
+</html>

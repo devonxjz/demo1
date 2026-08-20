@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: demo1-login
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: "8080"
