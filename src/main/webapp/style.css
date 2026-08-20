@@ -40,13 +40,19 @@ label {
 input,
 .button,
 button {
+    /* Các khung luôn bằng chiều rộng vùng content của card */
+    display: block;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
     padding: 12px;
     border-radius: 9px;
     font: inherit;
 }
-
 input {
+    display: block;
+    height: 46px;
     border: 1px solid #9ca3af;
 }
 
