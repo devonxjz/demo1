@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 @WebServlet("/login")
-public final class LoginServlet extends HttpServlet {
-    private static final int MAX_USERNAME_LENGTH = 50;
+public final class EmailListServlet extends HttpServlet {
+    private static final int MAX_NAME_LENGTH = 50;
     private static final int MAX_EMAIL_LENGTH = 254;
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
 
@@ -24,7 +24,10 @@ public final class LoginServlet extends HttpServlet {
                 "default-src 'none'; style-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
         response.setHeader("X-Content-Type-Options", "nosniff");
 
-        Credentials input = credentials(request.getParameter("username"), request.getParameter("email"));
+        Subscriber input = subscriber(
+                request.getParameter("email"),
+                request.getParameter("fname"),
+                request.getParameter("lname"));
         if (input == null) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writePage(response, "Thông tin không hợp lệ",
@@ -32,20 +35,22 @@ public final class LoginServlet extends HttpServlet {
             return;
         }
 
-        writePage(response, "Xin chào",
-                "<h1>Xin chào " + escapeHtml(input.username()) + "</h1>"
+        writePage(response, "Join email list",
+                "<h1>Thank you " + escapeHtml(input.firstName()) + " " + escapeHtml(input.lastName()) + "</h1>"
                         + "<p>Email: " + escapeHtml(input.email()) + "</p>"
                         + "<a class=\"button\" href=\"/\">Quay lại</a>");
     }
 
-    static Credentials credentials(String username, String email) {
-        if (username == null || email == null) return null;
+    static Subscriber subscriber(String email, String firstName, String lastName) {
+        if (email == null || firstName == null || lastName == null) return null;
 
-        String normalizedUsername = username.trim();
         String normalizedEmail = email.trim();
-        if (normalizedUsername.isEmpty() || normalizedUsername.length() > MAX_USERNAME_LENGTH) return null;
+        String normalizedFirstName = firstName.trim();
+        String normalizedLastName = lastName.trim();
         if (normalizedEmail.length() > MAX_EMAIL_LENGTH || !EMAIL_PATTERN.matcher(normalizedEmail).matches()) return null;
-        return new Credentials(normalizedUsername, normalizedEmail);
+        if (normalizedFirstName.isEmpty() || normalizedFirstName.length() > MAX_NAME_LENGTH) return null;
+        if (normalizedLastName.isEmpty() || normalizedLastName.length() > MAX_NAME_LENGTH) return null;
+        return new Subscriber(normalizedEmail, normalizedFirstName, normalizedLastName);
     }
 
     static String escapeHtml(String value) {
@@ -71,6 +76,6 @@ public final class LoginServlet extends HttpServlet {
                 """.formatted(title, content));
     }
 
-    record Credentials(String username, String email) {
+    record Subscriber(String email, String firstName, String lastName) {
     }
 }
