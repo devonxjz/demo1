@@ -1,0 +1,11 @@
+{
+  "name": "demo1-login",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "dev": "wrangler dev",
+    "check": "npm test && wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
+  }
+}
