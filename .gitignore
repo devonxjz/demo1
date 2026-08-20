@@ -38,3 +38,7 @@ build/
 ### Mac OS ###
 .DS_Store
 .worktrees/
+node_modules/
+.wrangler/
+.dev.vars
+.idea/

@@ -7,5 +7,8 @@
     "dev": "wrangler dev",
     "check": "npm test && wrangler deploy --dry-run",
     "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.124.0"
   }
 }
