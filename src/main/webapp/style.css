@@ -3,78 +3,196 @@
 }
 
 body {
-    min-height: 100vh;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.4;
     margin: 0;
-    display: grid;
-    place-items: center;
-    padding: 20px;
-    background: #f3f4f6;
-    color: #1f2937;
-    font: 16px/1.5 system-ui, sans-serif;
+    padding: 20px 24px;
 }
 
-.card {
-    width: min(100%, 420px);
-    padding: 32px;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    box-shadow: 0 16px 40px rgb(15 23 42 / 10%);
+.container {
+    max-width: 700px;
+}
+
+.logo {
+    margin-bottom: 6px;
+}
+
+.logo img {
+    display: block;
+    width: 76px;
+    height: 76px;
 }
 
 h1 {
-    margin: 0 0 8px;
+    color: #007b85;
+    font-size: 21px;
+    font-weight: bold;
+    margin: 12px 0 8px 0;
 }
 
-p {
-    margin: 0 0 24px;
-    color: #6b7280;
+.intro {
+    color: #000000;
+    font-size: 13.5px;
+    line-height: 1.4;
+    margin: 0 0 18px 0;
+    max-width: 480px;
 }
 
-label {
-    display: block;
-    margin: 16px 0 6px;
-    font-weight: 650;
+.section-heading {
+    color: #007b85;
+    font-size: 14.5px;
+    font-weight: bold;
+    margin: 16px 0 8px 0;
+    line-height: 1.35;
 }
 
-input,
-.button,
-button {
-    /* Các khung luôn bằng chiều rộng vùng content của card */
-    display: block;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-
-    padding: 12px;
-    border-radius: 9px;
-    font: inherit;
-}
-input {
-    display: block;
-    height: 46px;
-    border: 1px solid #9ca3af;
+/* Form inputs */
+.form-section {
+    margin-bottom: 12px;
 }
 
-input:focus {
-    border-color: #2563eb;
-    outline: 3px solid #bfdbfe;
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-.button,
-button {
+.form-row label {
     display: inline-block;
-    margin-top: 22px;
-    border: 0;
-    background: #2563eb;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 700;
+    width: 105px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"] {
+    width: 180px;
+    height: 22px;
+    padding: 2px 4px;
+    font-size: 13px;
+    font-family: inherit;
+    border: 1px solid #7a7a7a;
+    border-radius: 2px;
+}
+
+.form-row input:focus {
+    border-color: #007b85;
+    outline: none;
+}
+
+/* Radio buttons */
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.radio-label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 14px;
+    font-size: 13px;
+    color: #000000;
     cursor: pointer;
 }
 
-.button:hover,
-button:hover {
-    background: #1d4ed8;
+.radio-label input[type="radio"] {
+    margin: 0 4px 0 0;
+    cursor: pointer;
+}
+
+/* Checkboxes */
+.checkbox-group {
+    margin-bottom: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin: 0 6px 0 0;
+    cursor: pointer;
+}
+
+/* Contact dropdown */
+.contact-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 12px 0 16px 0;
+    font-size: 13px;
+}
+
+.contact-group label {
+    font-size: 13px;
+    color: #000000;
+}
+
+.contact-group select {
+    font-size: 13px;
+    font-family: inherit;
+    padding: 1px 4px;
+    border: 1px solid #7a7a7a;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* Submit button */
+.button-row {
+    margin-top: 14px;
+}
+
+.button-row input[type="submit"],
+.button-row button,
+.btn-link {
+    display: inline-block;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #000000;
+    background-color: #e1e1e1;
+    border: 1px solid #707070;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-row input[type="submit"]:hover,
+.button-row button:hover,
+.btn-link:hover {
+    background-color: #d4d4d4;
+}
+
+.button-row input[type="submit"]:active,
+.button-row button:active,
+.btn-link:active {
+    background-color: #bebebe;
+}
+
+/* Result Table */
+.result-table {
+    border-collapse: collapse;
+    margin: 15px 0 20px 0;
+    font-size: 13.5px;
+}
+
+.result-table td {
+    padding: 5px 12px 5px 0;
+    vertical-align: top;
+}
+
+.result-table td.label-col {
+    font-weight: bold;
+    width: 140px;
 }

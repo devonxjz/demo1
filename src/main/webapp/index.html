@@ -1,28 +1,91 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Join Email List</title>
+    <title>Survey</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<main class="card">
-    <h1>Join our email list </h1>
-    <p>Enter your email and name to join the list.</p>
+    <div class="container">
+        <!-- Murach Logo -->
+        <div class="logo">
+            <img src="assets/logo.jpg" alt="Murach Logo" width="72" height="72">
+        </div>
 
-    <form method="post" action="/login">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" maxlength="254" autocomplete="email" required><br>
+        <!-- Heading -->
+        <h1>Survey</h1>
 
-        <label for="fname">First Name</label>
-        <input id="fname" name="fname" maxlength="50" autocomplete="given-name" required><br>
+        <p class="intro">
+            If you have a moment, we'd appreciate it if you would fill out this survey.
+        </p>
 
-        <label for="lname">Last Name</label>
-        <input id="lname" name="lname" maxlength="50" autocomplete="family-name" required><br>
+        <!-- Form -->
+        <form action="survey" method="post">
+            <h2 class="section-heading">Your information:</h2>
+            <div class="form-section">
+                <div class="form-row">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-row">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-row">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="text" id="dateOfBirth" name="dateOfBirth">
+                </div>
+            </div>
 
-        <button type="submit">Join</button>
-    </form>
-</main>
+            <h2 class="section-heading">How did you hear about us?</h2>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="heardFrom" value="Search engine" checked> Search engine
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="heardFrom" value="Word of mouth"> Word of mouth
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="heardFrom" value="Social Media"> Social Media
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="heardFrom" value="Other"> Other
+                </label>
+            </div>
+
+            <h2 class="section-heading">Would you like to receive announcements<br>about new CDs and special offers?
+            </h2>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="wantsUpdates" value="YES, I'd like that."> YES, I'd like that.
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" name="emailAnnouncements" value="YES, please send me email announcements.">
+                    YES, please send me email announcements.
+                </label>
+            </div>
+
+            <div class="contact-group">
+                <label for="contactBy">Please contact me by:</label>
+                <select id="contactBy" name="contactBy">
+                    <option value="Email or postal mail">Email or postal mail</option>
+                    <option value="Email only">Email only</option>
+                    <option value="Postal mail only">Postal mail only</option>
+                </select>
+            </div>
+
+            <div class="button-row">
+                <input type="submit" value="Submit" id="submit">
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>
