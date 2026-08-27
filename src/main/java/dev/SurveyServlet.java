@@ -12,10 +12,20 @@ import java.io.IOException;
 public class SurveyServlet extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-        // 1. Lấy dữ liệu từ form
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. Lấy dữ liệu từ parameter (từ query URL hoặc form body)
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
@@ -42,11 +52,5 @@ public class SurveyServlet extends HttpServlet {
 
         // 4. Chuyển tiếp (forward) sang trang JSP hiển thị kết quả
         request.getRequestDispatcher("/thanks.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.sendRedirect("index.html");
     }
 }
