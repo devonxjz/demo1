@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/logo.jpg" alt="Murach Logo" width="72" height="72">
+            <img src="assets/logo.jpg" alt="Devonxjz Logo" width="72" height="72">
         </div>
         <h1>Thanks for taking our survey!</h1>
         <p class="intro">Here is the information that you entered:</p>
