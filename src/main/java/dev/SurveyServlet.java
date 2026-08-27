@@ -14,11 +14,10 @@ public class SurveyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String firstName = request.getParameter("firstName");
         String email = request.getParameter("email");
 
-        // Nếu truy cập trực tiếp /survey không có param -> redirect về index.html
-        if (firstName == null && email == null) {
+        // Nếu không có param email -> redirect về index.html
+        if (email == null || email.trim().isEmpty()) {
             response.sendRedirect("index.html");
             return;
         }
