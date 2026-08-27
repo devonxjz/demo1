@@ -14,13 +14,27 @@ public class SurveyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("index.html");
+        String firstName = request.getParameter("firstName");
+        String email = request.getParameter("email");
+
+        // Nếu truy cập trực tiếp /survey không có param -> redirect về index.html
+        if (firstName == null && email == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 1. Lấy dữ liệu từ form
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. Lấy dữ liệu từ parameter (từ query URL hoặc form body)
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
