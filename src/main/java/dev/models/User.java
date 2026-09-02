@@ -1,27 +1,63 @@
 package dev.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User implements Serializable {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String dateOfBirth;
-    private String heardFrom;
-    private String wantsUpdates;
-    private String emailAnnouncements;
-    private String contactBy;
 
-    public User() {
-        this.firstName = "";
-        this.lastName = "";
-        this.email = "";
-        this.dateOfBirth = "";
-        this.heardFrom = "Not specified";
-        this.wantsUpdates = "No";
-        this.emailAnnouncements = "No";
-        this.contactBy = "Email or postal mail";
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "first_name")
+    @Builder.Default
+    private String firstName = "";
+
+    @Column(name = "last_name")
+    @Builder.Default
+    private String lastName = "";
+
+    @Column(name = "email", nullable = false)
+    @Builder.Default
+    private String email = "";
+
+    @Column(name = "date_of_birth")
+    @Builder.Default
+    private String dateOfBirth = "";
+
+    @Column(name = "heard_from")
+    @Builder.Default
+    private String heardFrom = "Not specified";
+
+    @Column(name = "wants_updates")
+    @Builder.Default
+    private String wantsUpdates = "No";
+
+    @Column(name = "email_announcements")
+    @Builder.Default
+    private String emailAnnouncements = "No";
+
+    @Column(name = "contact_by")
+    @Builder.Default
+    private String contactBy = "Email or postal mail";
 
     public User(String firstName, String lastName, String email, String dateOfBirth,
                 String heardFrom, String wantsUpdates, String emailAnnouncements, String contactBy) {
@@ -33,69 +69,5 @@ public class User implements Serializable {
         this.wantsUpdates = (wantsUpdates != null && !wantsUpdates.trim().isEmpty()) ? "Yes" : "No";
         this.emailAnnouncements = (emailAnnouncements != null && !emailAnnouncements.trim().isEmpty()) ? "Yes" : "No";
         this.contactBy = (contactBy != null && !contactBy.trim().isEmpty()) ? contactBy.trim() : "Email or postal mail";
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getHeardFrom() {
-        return heardFrom;
-    }
-
-    public void setHeardFrom(String heardFrom) {
-        this.heardFrom = heardFrom;
-    }
-
-    public String getWantsUpdates() {
-        return wantsUpdates;
-    }
-
-    public void setWantsUpdates(String wantsUpdates) {
-        this.wantsUpdates = wantsUpdates;
-    }
-
-    public String getEmailAnnouncements() {
-        return emailAnnouncements;
-    }
-
-    public void setEmailAnnouncements(String emailAnnouncements) {
-        this.emailAnnouncements = emailAnnouncements;
-    }
-
-    public String getContactBy() {
-        return contactBy;
-    }
-
-    public void setContactBy(String contactBy) {
-        this.contactBy = contactBy;
     }
 }

@@ -1,0 +1,7 @@
+supabase.datasource.url=jdbc:postgresql://db.your-project-ref.supabase.co:5432/postgres?sslmode=require
+supabase.datasource.username=postgres
+supabase.datasource.password=your-supabase-db-password
+
+supabase.api.url=https://your-project-ref.supabase.co
+supabase.api.anon-key=your-supabase-anon-key
+supabase.api.service-role-key=your-supabase-service-role-key

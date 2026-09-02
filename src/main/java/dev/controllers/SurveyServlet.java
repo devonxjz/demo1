@@ -1,6 +1,7 @@
 package dev.controllers;
 
 import dev.models.User;
+import dev.services.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +12,8 @@ import java.io.IOException;
 
 @WebServlet("/survey")
 public class SurveyServlet extends HttpServlet {
+
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,10 +57,13 @@ public class SurveyServlet extends HttpServlet {
                 contactBy
         );
 
-        // 3. Đưa đối tượng user vào request attribute
+        // 3. Lưu thông qua tầng UserService
+        userService.saveSurvey(user);
+
+        // 4. Đưa đối tượng user vào request attribute
         request.setAttribute("user", user);
 
-        // 4. Chuyển tiếp (forward) sang trang JSP hiển thị kết quả
+        // 5. Chuyển tiếp (forward) sang trang JSP hiển thị kết quả
         request.getRequestDispatcher("/WEB-INF/views/thanks.jsp").forward(request, response);
     }
 }
