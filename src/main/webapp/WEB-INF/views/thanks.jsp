@@ -1,15 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Survey Confirmation</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/logo.jpg" alt="Devonxjz Logo" width="72" height="72">
+            <img src="${pageContext.request.contextPath}/assets/images/logo.jpg" alt="Devonxjz Logo" width="72" height="72">
         </div>
         <h1>Thanks for taking our survey!</h1>
         <p class="intro">Here is the information that you entered:</p>
@@ -24,7 +25,7 @@
             <tr><td class="label-col">Contact Via:</td><td>${user.contactBy}</td></tr>
         </table>
         <div class="button-row">
-            <a class="btn-link" href="index.html">Return to Survey</a>
+            <a class="btn-link" href="${pageContext.request.contextPath}/index.html">Return to Survey</a>
         </div>
     </div>
 </body>

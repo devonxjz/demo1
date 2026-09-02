@@ -1,10 +1,10 @@
-package dev;
+package dev.models;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SurveyServletTest {
+class UserTest {
 
     @Test
     void userBeanCorrectlyProcessesFormData() {
