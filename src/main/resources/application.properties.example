@@ -1,5 +1,5 @@
-supabase.datasource.url=jdbc:postgresql://db.your-project-ref.supabase.co:5432/postgres?sslmode=require
-supabase.datasource.username=postgres
+supabase.datasource.url=jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres?sslmode=require
+supabase.datasource.username=postgres.your-project-ref
 supabase.datasource.password=your-supabase-db-password
 
 supabase.api.url=https://your-project-ref.supabase.co

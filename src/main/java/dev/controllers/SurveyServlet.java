@@ -32,7 +32,7 @@ public class SurveyServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         if (email == null || email.trim().isEmpty()) {
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
             return;
         }
 

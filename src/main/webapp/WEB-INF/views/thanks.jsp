@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,8 +26,11 @@
             <tr><td class="label-col">Contact Via:</td><td>${user.contactBy}</td></tr>
         </table>
         <div class="button-row">
-            <a class="btn-link" href="${pageContext.request.contextPath}/index.html">Return to Survey</a>
+            <a class="btn-link" href="${pageContext.request.contextPath}/index.jsp">Return to Survey</a>
         </div>
+
+        <!-- Include footer bằng JSTL c:import -->
+        <c:import url="/footer.jsp" />
     </div>
 </body>
 </html>

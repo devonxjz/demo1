@@ -19,7 +19,10 @@ public class JpaUtil {
                         .setProperty("jakarta.persistence.jdbc.url", cfg.getJdbcUrl())
                         .setProperty("jakarta.persistence.jdbc.user", cfg.getDbUsername())
                         .setProperty("jakarta.persistence.jdbc.password", cfg.getDbPassword())
-                        .setProperty("hibernate.hbm2ddl.auto", "update")
+                        .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
+                        .setProperty("hibernate.boot.allow_jdbc_metadata_access", "false")
+                        .setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false")
+                        .setProperty("hibernate.hbm2ddl.auto", "none")
                         .buildSessionFactory();
             } catch (Exception e) {
                 System.err.println("[JpaUtil] Hibernate init error: " + e.getMessage());

@@ -10,10 +10,17 @@ body {
     line-height: 1.4;
     margin: 0;
     padding: 20px 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
     max-width: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .logo {
@@ -196,3 +203,18 @@ h1 {
     font-weight: bold;
     width: 140px;
 }
+
+/* Footer */
+.site-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #d0d0d0;
+    color: #666666;
+    font-size: 12px;
+    text-align: left;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
