@@ -12,9 +12,14 @@ public class JpaUtil {
     public static synchronized EntityManagerFactory getEntityManagerFactory() {
         if (emf == null || !emf.isOpen()) {
             try {
+                DatabaseInitializer.initialize();
                 SupabaseConfig cfg = SupabaseConfig.getInstance();
                 emf = new Configuration()
                         .addAnnotatedClass(User.class)
+                        .addAnnotatedClass(dev.models.Product.class)
+                        .addAnnotatedClass(dev.models.Order.class)
+                        .addAnnotatedClass(dev.models.OrderDetail.class)
+                        .addAnnotatedClass(dev.models.Bill.class)
                         .setProperty("jakarta.persistence.jdbc.driver", "org.postgresql.Driver")
                         .setProperty("jakarta.persistence.jdbc.url", cfg.getJdbcUrl())
                         .setProperty("jakarta.persistence.jdbc.user", cfg.getDbUsername())

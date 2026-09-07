@@ -13,8 +13,6 @@ public class SupabaseConfig {
     private String jdbcUrl = "";
     private String dbUsername = "postgres";
     private String dbPassword = "";
-    private String apiUrl = "";
-    private String anonKey = "";
 
     public static SupabaseConfig getInstance() {
         return INSTANCE;
@@ -28,8 +26,6 @@ public class SupabaseConfig {
                 this.jdbcUrl = props.getProperty("supabase.datasource.url", "");
                 this.dbUsername = props.getProperty("supabase.datasource.username", "postgres");
                 this.dbPassword = props.getProperty("supabase.datasource.password", "");
-                this.apiUrl = props.getProperty("supabase.api.url", "");
-                this.anonKey = props.getProperty("supabase.api.anon-key", "");
             }
         } catch (Exception e) {
             System.err.println("[SupabaseConfig] Error loading env file: " + e.getMessage());

@@ -9,10 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * BaseRepository: Lớp Repository Generic dùng chung cho tất cả các Entity trong ứng dụng
- *
- * @param <T>  Kiểu Entity (ví dụ: User)
- * @param <ID> Kiểu khóa chính (ví dụ: Long)
+ * @param <T>
+ * @param <ID>
  */
 public abstract class BaseRepository<T, ID> {
 

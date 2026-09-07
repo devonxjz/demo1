@@ -1,7 +1,7 @@
 package dev.controllers;
 
 import dev.models.User;
-import dev.services.UserService;
+import dev.repositories.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/survey")
 public class SurveyServlet extends HttpServlet {
 
-    private final UserService userService = new UserService();
+    private final UserRepository userRepository = new UserRepository();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,13 +57,16 @@ public class SurveyServlet extends HttpServlet {
                 contactBy
         );
 
-        // 3. Lưu thông qua tầng UserService
-        userService.saveSurvey(user);
+        // 3. Lưu thông qua tầng UserRepository
+        userRepository.save(user);
 
-        // 4. Đưa đối tượng user vào request attribute
+        // 4. Đồng bộ User Object vào Cookie và Session
+        dev.utils.CookieUtil.syncUser(request, response, user);
+
+        // 5. Đưa đối tượng user vào request attribute
         request.setAttribute("user", user);
 
-        // 5. Chuyển tiếp (forward) sang trang JSP hiển thị kết quả
+        // 6. Chuyển tiếp (forward) sang trang JSP hiển thị kết quả
         request.getRequestDispatcher("/WEB-INF/views/thanks.jsp").forward(request, response);
     }
 }

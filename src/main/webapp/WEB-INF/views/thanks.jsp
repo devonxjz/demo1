@@ -10,9 +10,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="${pageContext.request.contextPath}/assets/images/logo.jpg" alt="Devonxjz Logo" width="72" height="72">
-        </div>
+        <!-- Thanh Header Bar chung -->
+        <jsp:include page="/header.jsp" />
         <h1>Thanks for taking our survey!</h1>
         <p class="intro">Here is the information that you entered:</p>
         <table class="result-table">
