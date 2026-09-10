@@ -6,8 +6,7 @@ import dev.models.LineItem;
 import dev.models.Order;
 import dev.models.OrderDetail;
 import dev.models.Product;
-import dev.repositories.BillRepository;
-import dev.repositories.OrderRepository;
+import dev.repositories.BaseRepository;
 import dev.repositories.ProductRepository;
 
 import java.time.LocalDateTime;
@@ -17,8 +16,8 @@ import java.util.Random;
 public class OrderService {
 
     private final ProductRepository productRepository = new ProductRepository();
-    private final OrderRepository orderRepository = new OrderRepository();
-    private final BillRepository billRepository = new BillRepository();
+    private final BaseRepository<Order, Long> orderRepository = new BaseRepository<>(Order.class);
+    private final BaseRepository<Bill, Long> billRepository = new BaseRepository<>(Bill.class);
     private final Random random = new Random();
 
     public Bill createOrderAndBill(Cart cart, String customerIdentifier, String paymentMethod) {

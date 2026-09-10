@@ -12,11 +12,11 @@ import java.util.Optional;
  * @param <T>
  * @param <ID>
  */
-public abstract class BaseRepository<T, ID> {
+public class BaseRepository<T, ID> {
 
     protected final Class<T> entityClass;
 
-    protected BaseRepository(Class<T> entityClass) {
+    public BaseRepository(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

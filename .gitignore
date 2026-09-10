@@ -33,3 +33,5 @@ node_modules/
 
 #environment variables
 src/main/resources/application.properties
+
+tmp.txt

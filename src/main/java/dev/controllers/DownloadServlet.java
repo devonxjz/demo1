@@ -52,15 +52,11 @@ public class DownloadServlet extends HttpServlet {
                 if (f.isFile()) {
                     long size = f.length();
                     String sizeFormatted = size < 1024 ? size + " B" : (size / 1024) + " KB";
-                    files.add(MediaFileInfo.builder()
-                            .name(f.getName())
-                            .sizeBytes(size)
-                            .sizeFormatted(sizeFormatted)
-                            .build());
+                    files.add(new MediaFileInfo(f.getName(), sizeFormatted));
                 }
             }
         }
-        files.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+        files.sort((a, b) -> a.name().compareToIgnoreCase(b.name()));
 
         request.setAttribute("fileList", files);
         request.getRequestDispatcher("/WEB-INF/views/download.jsp").forward(request, response);

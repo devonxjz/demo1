@@ -80,13 +80,7 @@ public class OrderServlet extends HttpServlet {
         switch (action.toLowerCase()) {
             case "add": {
                 String productCode = request.getParameter("productCode");
-                String quantityStr = request.getParameter("quantity");
-                int quantity = 1;
-                if (quantityStr != null && !quantityStr.trim().isEmpty()) {
-                    try {
-                        quantity = Integer.parseInt(quantityStr.trim());
-                    } catch (NumberFormatException ignored) {}
-                }
+                int quantity = parseIntOrDefault(request.getParameter("quantity"), 1);
                 Product product = productService.getProductByCode(productCode);
                 if (product != null && quantity > 0) {
                     cart.addItem(new LineItem(product, quantity));
@@ -97,13 +91,7 @@ public class OrderServlet extends HttpServlet {
             }
             case "update": {
                 String productCode = request.getParameter("productCode");
-                String quantityStr = request.getParameter("quantity");
-                int quantity = 0;
-                if (quantityStr != null && !quantityStr.trim().isEmpty()) {
-                    try {
-                        quantity = Integer.parseInt(quantityStr.trim());
-                    } catch (NumberFormatException ignored) {}
-                }
+                int quantity = parseIntOrDefault(request.getParameter("quantity"), 0);
                 cart.updateItem(productCode, quantity);
                 CookieUtil.syncCart(request, response, cart);
                 response.sendRedirect(request.getContextPath() + "/order?action=cart");
@@ -143,6 +131,17 @@ public class OrderServlet extends HttpServlet {
             default:
                 response.sendRedirect(request.getContextPath() + "/order");
                 break;
+        }
+    }
+
+    private int parseIntOrDefault(String value, int defaultValue) {
+        if (value == null || value.trim().isEmpty()) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            return defaultValue;
         }
     }
 }

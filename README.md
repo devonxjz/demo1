@@ -12,3 +12,20 @@ docker build -t demo1 .
 docker run --rm -p 8081:8080 demo1
 ```
 Truy cập: `http://localhost:8081/`
+
+## Testing
+
+Chạy toàn bộ unit tests:
+```bash
+mvn test
+```
+
+Chạy clean và test lại toàn bộ:
+```bash
+mvn clean test
+```
+
+Chạy một test class cụ thể (ví dụ `AuthServiceTest` hoặc `CartTest`):
+```bash
+mvn test -Dtest=AuthServiceTest
+```
