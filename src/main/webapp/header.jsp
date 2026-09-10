@@ -9,6 +9,7 @@
         <nav class="header-nav">
             <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">Survey</a>
             <a href="${pageContext.request.contextPath}/order" class="nav-link">Order / Shop</a>
+            <a href="${pageContext.request.contextPath}/download" class="nav-link">Download</a>
             <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link refresh-link" title="Làm mới - Trở về trang chủ">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 3px;">
                     <path d="M23 4v6h-6"></path>
@@ -18,12 +19,25 @@
                 <span>Làm mới</span>
             </a>
         </nav>
-        <div class="header-right" style="display: flex; align-items: center; gap: 12px;">
-            <c:if test="${not empty sessionScope.user}">
-                <span class="user-greeting" style="font-size: 12.5px; color: #007b85; font-weight: bold;">
-                    Xin chào, ${sessionScope.user.firstName}!
-                </span>
-            </c:if>
+        <div class="header-right" style="display: flex; align-items: center; gap: 10px;">
+            <c:choose>
+                <c:when test="${not empty sessionScope.user}">
+                    <span class="user-greeting" style="font-size: 12.5px; color: #007b85; font-weight: bold;">
+                        Xin chào, ${sessionScope.user.displayName}!
+                    </span>
+                    <a href="${pageContext.request.contextPath}/logout" class="nav-link" style="color: #c9302c; font-size: 12px; padding: 2px 6px;" title="Đăng xuất khỏi hệ thống">
+                        Đăng xuất
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login" class="nav-link" style="font-size: 12.5px; padding: 3px 6px;">
+                        Đăng nhập
+                    </a>
+                    <a href="${pageContext.request.contextPath}/register" class="nav-link" style="font-size: 12.5px; padding: 3px 8px; background-color: #007b85; color: #ffffff !important; border-radius: 3px;">
+                        Đăng ký
+                    </a>
+                </c:otherwise>
+            </c:choose>
             <div class="header-cart">
                 <a href="${pageContext.request.contextPath}/order?action=cart" class="cart-btn" title="Xem giỏ hàng">
                     <svg class="cart-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

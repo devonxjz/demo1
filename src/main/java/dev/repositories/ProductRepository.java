@@ -36,21 +36,4 @@ public class ProductRepository extends BaseRepository<Product, Long> {
             em.close();
         }
     }
-
-    public long count() {
-        EntityManager em = JpaUtil.getEntityManager();
-        if (em == null) {
-            return 0;
-        }
-        try {
-            String jpql = "SELECT COUNT(p) FROM Product p";
-            Long count = em.createQuery(jpql, Long.class).getSingleResult();
-            return count != null ? count : 0;
-        } catch (Exception e) {
-            System.err.println("[ProductRepository] Error counting products: " + e.getMessage());
-            return 0;
-        } finally {
-            em.close();
-        }
-    }
 }

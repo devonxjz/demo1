@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Download Page Styles
+   ========================================================================== */
+
+.download-container {
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.media-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0 24px 0;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dcdcdc;
+}
+
+.media-table th,
+.media-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e8e8e8;
+    font-size: 13.5px;
+    vertical-align: middle;
+}
+
+.media-table th {
+    background-color: #f2f7f7;
+    color: #007b85;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.media-table tbody tr:hover {
+    background-color: #f9fdfd;
+}
+
+.btn-download-action {
+    display: inline-block;
+    background-color: #007b85;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12.5px;
+    transition: background-color 0.15s;
+}
+
+.btn-download-action:hover {
+    background-color: #006068;
+    color: #ffffff;
+}

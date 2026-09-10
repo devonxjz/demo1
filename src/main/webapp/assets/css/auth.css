@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Authentication (Login & Register) Styles
+   ========================================================================== */
+
+.auth-container {
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.auth-card {
+    max-width: 480px;
+    margin: 25px auto;
+    padding: 24px 30px;
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.auth-title {
+    color: #007b85;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.auth-subtitle {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-row-2col {
+    display: flex;
+    gap: 12px;
+}
+
+.form-field {
+    margin-bottom: 14px;
+    flex: 1;
+}
+
+.form-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field input[type="password"] {
+    width: 100%;
+    height: 34px;
+    padding: 6px 10px;
+    font-size: 13px;
+    border: 1px solid #b0b0b0;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+}
+
+.form-field input:focus {
+    border-color: #007b85;
+    box-shadow: 0 0 0 2px rgba(0, 123, 133, 0.15);
+}
+
+.alert {
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.alert-danger {
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+    color: #cf1322;
+}
+
+.alert-success {
+    background-color: #f6ffed;
+    border: 1px solid #b7eb8f;
+    color: #389e0d;
+}
+
+.btn-auth-submit {
+    width: 100%;
+    height: 38px;
+    background-color: #007b85;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    margin-top: 8px;
+}
+
+.btn-auth-submit:hover {
+    background-color: #006068;
+}
+
+.auth-footer-links {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+}
+
+.auth-footer-links a {
+    color: #007b85;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.auth-footer-links a:hover {
+    text-decoration: underline;
+}

@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
@@ -42,13 +41,6 @@ public class OrderServlet extends HttpServlet {
 
         // Đồng bộ User từ Session hoặc Object Cookie
         User user = CookieUtil.getSyncedUser(request);
-        String userCookie = CookieUtil.getCookieValue(request.getCookies(), CookieUtil.USER_COOKIE_NAME);
-        if (user != null) {
-            userCookie = user.getEmail();
-        } else if (userCookie.isEmpty()) {
-            userCookie = "user_" + UUID.randomUUID().toString().substring(0, 8);
-            CookieUtil.addCookie(response, CookieUtil.USER_COOKIE_NAME, userCookie, CookieUtil.DEFAULT_COOKIE_MAX_AGE);
-        }
 
         String action = request.getParameter("action");
         if (action == null || action.trim().isEmpty()) {
@@ -56,14 +48,6 @@ public class OrderServlet extends HttpServlet {
         }
 
         if ("cart".equalsIgnoreCase(action) || "checkout".equalsIgnoreCase(action)) {
-            String rawCartCookie = CookieUtil.getCookieValue(request.getCookies(), CookieUtil.CART_COOKIE_NAME);
-            String cartObjCookie = CookieUtil.getCookieValue(request.getCookies(), CookieUtil.CART_OBJECT_COOKIE_NAME);
-            String userObjCookie = CookieUtil.getCookieValue(request.getCookies(), CookieUtil.USER_OBJECT_COOKIE_NAME);
-
-            request.setAttribute("rawCartCookie", rawCartCookie);
-            request.setAttribute("cartObjCookie", cartObjCookie);
-            request.setAttribute("userObjCookie", userObjCookie);
-            request.setAttribute("userCookieVal", userCookie);
             request.setAttribute("syncedUser", user);
             request.setAttribute("cart", cart);
             request.getRequestDispatcher("/WEB-INF/views/checkout.jsp").forward(request, response);
@@ -81,7 +65,7 @@ public class OrderServlet extends HttpServlet {
             request.setAttribute("products", productService.getAllProducts());
             request.setAttribute("cart", cart);
             request.setAttribute("syncedUser", user);
-            request.getRequestDispatcher("/order.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/order.jsp").forward(request, response);
         }
     }
 

@@ -67,6 +67,10 @@ public class Cart implements Serializable {
         return count;
     }
 
+    public int getTotalCount() {
+        return getCount();
+    }
+
     public double getTotalAmount() {
         double total = 0.0;
         for (LineItem lineItem : items) {

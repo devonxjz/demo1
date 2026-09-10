@@ -27,6 +27,14 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username")
+    @Builder.Default
+    private String username = "";
+
+    @Column(name = "password")
+    @Builder.Default
+    private String password = "";
+
     @Column(name = "first_name")
     @Builder.Default
     private String firstName = "";
@@ -61,6 +69,8 @@ public class User implements Serializable {
 
     public User(String firstName, String lastName, String email, String dateOfBirth,
                 String heardFrom, String wantsUpdates, String emailAnnouncements, String contactBy) {
+        this.username = "";
+        this.password = "";
         this.firstName = firstName != null ? firstName.trim() : "";
         this.lastName = lastName != null ? lastName.trim() : "";
         this.email = email != null ? email.trim() : "";
@@ -69,5 +79,31 @@ public class User implements Serializable {
         this.wantsUpdates = (wantsUpdates != null && !wantsUpdates.trim().isEmpty()) ? "Yes" : "No";
         this.emailAnnouncements = (emailAnnouncements != null && !emailAnnouncements.trim().isEmpty()) ? "Yes" : "No";
         this.contactBy = (contactBy != null && !contactBy.trim().isEmpty()) ? contactBy.trim() : "Email or postal mail";
+    }
+
+    public User(String username, String email, String password, String firstName, String lastName) {
+        this.username = username != null ? username.trim() : "";
+        this.email = email != null ? email.trim() : "";
+        this.password = password != null ? password : "";
+        this.firstName = firstName != null ? firstName.trim() : "";
+        this.lastName = lastName != null ? lastName.trim() : "";
+        this.dateOfBirth = "";
+        this.heardFrom = "Not specified";
+        this.wantsUpdates = "No";
+        this.emailAnnouncements = "No";
+        this.contactBy = "Email or postal mail";
+    }
+
+    public String getDisplayName() {
+        if (firstName != null && !firstName.trim().isEmpty()) {
+            return firstName.trim();
+        }
+        if (username != null && !username.trim().isEmpty()) {
+            return username.trim();
+        }
+        if (email != null && !email.trim().isEmpty()) {
+            return email.trim();
+        }
+        return "User";
     }
 }

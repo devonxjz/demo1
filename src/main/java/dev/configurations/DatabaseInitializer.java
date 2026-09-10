@@ -19,10 +19,12 @@ public class DatabaseInitializer {
             try (Connection conn = DriverManager.getConnection(cfg.getJdbcUrl(), cfg.getDbUsername(), cfg.getDbPassword());
                  Statement stmt = conn.createStatement()) {
 
-                // 0. Tạo bảng users
+                // 0. Tạo bảng users & nâng cấp schema
                 stmt.execute("""
                     CREATE TABLE IF NOT EXISTS users (
                         id BIGSERIAL PRIMARY KEY,
+                        username VARCHAR(100),
+                        password VARCHAR(255),
                         first_name VARCHAR(255),
                         last_name VARCHAR(255),
                         email VARCHAR(255) NOT NULL,
@@ -32,9 +34,11 @@ public class DatabaseInitializer {
                         email_announcements VARCHAR(50),
                         contact_by VARCHAR(100)
                     );
+                    ALTER TABLE users ADD COLUMN IF NOT EXISTS username VARCHAR(100);
+                    ALTER TABLE users ADD COLUMN IF NOT EXISTS password VARCHAR(255);
                 """);
 
-                // 1. Tạo bảng products
+                // 1. Tạo bảng products & seed dữ liệu mẫu nếu chưa có
                 stmt.execute("""
                     CREATE TABLE IF NOT EXISTS products (
                         id BIGSERIAL PRIMARY KEY,
@@ -43,6 +47,13 @@ public class DatabaseInitializer {
                         price DOUBLE PRECISION NOT NULL,
                         description TEXT
                     );
+                    INSERT INTO products (code, name, price, description) VALUES
+                    ('8601', '86 (the band) - True Life Songs and Pictures', 14.95, 'Album đĩa CD của nhóm 86'),
+                    ('pf01', 'Paddlefoot - The First CD Album', 12.95, 'Album ca nhạc Paddlefoot đầu tay'),
+                    ('jr01', 'Joe Rut - Genuine Wood Grained Finish', 14.95, 'Đĩa CD Joe Rut chính hãng'),
+                    ('jsp01', 'Murach''s Java Servlets and JSP (4th Edition)', 54.50, 'Sách lập trình Java Servlet & JSP chuẩn Murach'),
+                    ('kb01', 'RGB Mechanical Gaming Keyboard', 45.00, 'Bàn phím cơ chơi game LED RGB')
+                    ON CONFLICT (code) DO NOTHING;
                 """);
 
                 // 2. Tạo bảng orders

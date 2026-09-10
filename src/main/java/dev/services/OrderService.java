@@ -12,7 +12,6 @@ import dev.repositories.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Random;
 
 public class OrderService {
@@ -88,13 +87,5 @@ public class OrderService {
         order.setBill(bill);
 
         return bill;
-    }
-
-    public Optional<Bill> getBillByNumber(String billNumber) {
-        return billRepository.findByBillNumber(billNumber);
-    }
-
-    public Optional<Order> getOrderByNumber(String orderNumber) {
-        return orderRepository.findByOrderNumber(orderNumber);
     }
 }

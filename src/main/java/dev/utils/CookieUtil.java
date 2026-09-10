@@ -38,17 +38,6 @@ public class CookieUtil {
         return cookieValue;
     }
 
-    public static Cookie getCookie(Cookie[] cookies, String cookieName) {
-        if (cookies != null && cookieName != null) {
-            for (Cookie cookie : cookies) {
-                if (cookieName.equals(cookie.getName())) {
-                    return cookie;
-                }
-            }
-        }
-        return null;
-    }
-
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         if (response == null || name == null) {
             return;

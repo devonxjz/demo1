@@ -51,4 +51,26 @@ class UserTest {
         assertEquals("No", user.getEmailAnnouncements());
         assertEquals("Email or postal mail", user.getContactBy());
     }
+
+    @Test
+    void userAuthConstructorAndDisplayName() {
+        User user1 = new User("devon", "devon@example.com", "bcryptHash", "Nam", "Nguyen");
+        assertEquals("devon", user1.getUsername());
+        assertEquals("devon@example.com", user1.getEmail());
+        assertEquals("bcryptHash", user1.getPassword());
+        assertEquals("Nam", user1.getDisplayName());
+
+        User user2 = new User("devon", "devon@example.com", "bcryptHash", "", "");
+        assertEquals("devon", user2.getDisplayName());
+
+        User user3 = new User("", "devon@example.com", "bcryptHash", "", "");
+        assertEquals("devon@example.com", user3.getDisplayName());
+
+        User user4 = new User("", "", "bcryptHash", "", "");
+        assertEquals("User", user4.getDisplayName());
+
+        User user5 = new User(null, null, null, null, null);
+        assertEquals("User", user5.getDisplayName());
+        assertEquals("", user5.getUsername());
+    }
 }

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container order-container">
         <!-- Header Bar -->
         <jsp:include page="/header.jsp" />
 

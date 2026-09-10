@@ -11,7 +11,7 @@
         </head>
 
         <body>
-            <div class="container">
+            <div class="container order-container">
                 <jsp:include page="/header.jsp" />
 
                 <h1>Danh sách sản phẩm</h1>
