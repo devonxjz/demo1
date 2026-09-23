@@ -53,10 +53,13 @@ public class Cart implements Serializable {
     }
 
     public void removeItem(String code) {
-        if (code == null) {
+        if (code == null || code.isBlank()) {
             return;
         }
-        items.removeIf(lineItem -> lineItem.getProduct().getCode().equalsIgnoreCase(code));
+ 
+        items.removeIf(item -> 
+                item.getProduct() != null && 
+                item.getProduct().getCode().equalsIgnoreCase(code));
     }
 
     public int getCount() {

@@ -1,4 +1,4 @@
-package dev.repositories;
+package dev.dao;
 
 import dev.configurations.JpaUtil;
 import dev.models.User;
@@ -7,9 +7,12 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepository extends BaseRepository<User, Long> {
+/**
+ * DAO dành riêng cho Entity User
+ */
+public class UserDao extends BaseDao<User, Long> {
 
-    public UserRepository() {
+    public UserDao() {
         super(User.class);
     }
 
@@ -28,7 +31,7 @@ public class UserRepository extends BaseRepository<User, Long> {
                     .getResultList();
             return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
         } catch (Exception e) {
-            System.err.println("[UserRepository] Lỗi findByUsername: " + e.getMessage());
+            System.err.println("[UserDao] Lỗi findByUsername: " + e.getMessage());
             return Optional.empty();
         } finally {
             em.close();
@@ -50,7 +53,7 @@ public class UserRepository extends BaseRepository<User, Long> {
                     .getResultList();
             return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
         } catch (Exception e) {
-            System.err.println("[UserRepository] Lỗi findByEmail: " + e.getMessage());
+            System.err.println("[UserDao] Lỗi findByEmail: " + e.getMessage());
             return Optional.empty();
         } finally {
             em.close();
@@ -72,7 +75,7 @@ public class UserRepository extends BaseRepository<User, Long> {
                     .getResultList();
             return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
         } catch (Exception e) {
-            System.err.println("[UserRepository] Lỗi findByUsernameOrEmail: " + e.getMessage());
+            System.err.println("[UserDao] Lỗi findByUsernameOrEmail: " + e.getMessage());
             return Optional.empty();
         } finally {
             em.close();

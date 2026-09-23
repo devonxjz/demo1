@@ -1,4 +1,4 @@
-package dev.repositories;
+package dev.dao;
 
 import dev.configurations.JpaUtil;
 import dev.models.Product;
@@ -7,9 +7,12 @@ import jakarta.persistence.NoResultException;
 
 import java.util.Optional;
 
-public class ProductRepository extends BaseRepository<Product, Long> {
+/**
+ * DAO dành riêng cho Entity Product
+ */
+public class ProductDao extends BaseDao<Product, Long> {
 
-    public ProductRepository() {
+    public ProductDao() {
         super(Product.class);
     }
 
@@ -30,7 +33,7 @@ public class ProductRepository extends BaseRepository<Product, Long> {
         } catch (NoResultException e) {
             return Optional.empty();
         } catch (Exception e) {
-            System.err.println("[ProductRepository] Error finding product by code: " + e.getMessage());
+            System.err.println("[ProductDao] Error finding product by code: " + e.getMessage());
             return Optional.empty();
         } finally {
             em.close();

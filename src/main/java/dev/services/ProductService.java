@@ -1,30 +1,25 @@
 package dev.services;
 
+import dev.dao.ProductDao;
 import dev.models.Product;
-import dev.repositories.ProductRepository;
 
 import java.util.List;
 
+/**
+ * Service quản lý sản phẩm
+ */
 public class ProductService {
 
-    private final ProductRepository productRepository;
-
-    public ProductService() {
-        this.productRepository = new ProductRepository();
-    }
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductDao productDao = new ProductDao();
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productDao.findAll();
     }
 
     public Product getProductByCode(String code) {
         if (code == null || code.trim().isEmpty()) {
             return null;
         }
-        return productRepository.findByCode(code.trim()).orElse(null);
+        return productDao.findByCode(code.trim()).orElse(null);
     }
 }

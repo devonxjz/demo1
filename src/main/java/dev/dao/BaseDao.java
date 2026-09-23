@@ -1,4 +1,4 @@
-package dev.repositories;
+package dev.dao;
 
 import dev.configurations.JpaUtil;
 import jakarta.persistence.EntityManager;
@@ -9,14 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @param <T>
- * @param <ID>
+ * Lớp cơ sở cung cấp các thao tác CRUD chung bằng JPA EntityManager
+ *
+ * @param <T>  Kiểu Entity
+ * @param <ID> Kiểu khóa chính (Primary Key)
  */
-public class BaseRepository<T, ID> {
+public class BaseDao<T, ID> {
 
     protected final Class<T> entityClass;
 
-    public BaseRepository(Class<T> entityClass) {
+    public BaseDao(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

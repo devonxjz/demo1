@@ -1,7 +1,7 @@
 package dev.controllers;
 
+import dev.dao.UserDao;
 import dev.models.User;
-import dev.repositories.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/survey")
 public class SurveyServlet extends HttpServlet {
 
-    private final UserRepository userRepository = new UserRepository();
+    private final UserDao userDao = new UserDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +57,8 @@ public class SurveyServlet extends HttpServlet {
                 contactBy
         );
 
-        // 3. Lưu thông qua tầng UserRepository
-        userRepository.save(user);
+        // 3. Lưu thông qua tầng UserDao
+        userDao.save(user);
 
         // 4. Đồng bộ User Object vào Cookie và Session
         dev.utils.CookieUtil.syncUser(request, response, user);

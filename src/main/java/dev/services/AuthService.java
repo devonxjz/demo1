@@ -1,21 +1,24 @@
 package dev.services;
 
+import dev.dao.UserDao;
 import dev.models.User;
-import dev.repositories.UserRepository;
 import dev.utils.PasswordUtil;
 
 import java.util.Optional;
 
+/**
+ * Service xử lý xác thực và đăng ký người dùng
+ */
 public class AuthService {
 
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
     public AuthService() {
-        this.userRepository = new UserRepository();
+        this.userDao = new UserDao();
     }
 
-    public AuthService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AuthService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     /**
@@ -57,11 +60,11 @@ public class AuthService {
             return RegisterResult.failure("Xác nhận mật khẩu không trùng khớp.");
         }
 
-        if (userRepository.existsByUsername(username)) {
+        if (userDao.existsByUsername(username)) {
             return RegisterResult.failure("Tên đăng nhập '" + username + "' đã được sử dụng.");
         }
 
-        if (userRepository.existsByEmail(email)) {
+        if (userDao.existsByEmail(email)) {
             return RegisterResult.failure("Email '" + email + "' đã được đăng ký.");
         }
 
@@ -72,7 +75,7 @@ public class AuthService {
                 firstName != null ? firstName.trim() : "",
                 lastName != null ? lastName.trim() : "");
 
-        boolean saved = userRepository.save(newUser);
+        boolean saved = userDao.save(newUser);
         if (!saved) {
             return RegisterResult.failure("Không thể lưu tài khoản vào cơ sở dữ liệu. Vui lòng thử lại.");
         }
@@ -89,7 +92,7 @@ public class AuthService {
             return Optional.empty();
         }
 
-        Optional<User> userOpt = userRepository.findByUsernameOrEmail(identifier.trim());
+        Optional<User> userOpt = userDao.findByUsernameOrEmail(identifier.trim());
         if (userOpt.isEmpty()) {
             return Optional.empty();
         }

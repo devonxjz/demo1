@@ -1,23 +1,26 @@
 package dev.services;
 
+import dev.dao.BaseDao;
+import dev.dao.ProductDao;
 import dev.models.Bill;
 import dev.models.Cart;
 import dev.models.LineItem;
 import dev.models.Order;
 import dev.models.OrderDetail;
 import dev.models.Product;
-import dev.repositories.BaseRepository;
-import dev.repositories.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Service xử lý đơn hàng và hóa đơn
+ */
 public class OrderService {
 
-    private final ProductRepository productRepository = new ProductRepository();
-    private final BaseRepository<Order, Long> orderRepository = new BaseRepository<>(Order.class);
-    private final BaseRepository<Bill, Long> billRepository = new BaseRepository<>(Bill.class);
+    private final ProductDao productDao = new ProductDao();
+    private final BaseDao<Order, Long> orderDao = new BaseDao<>(Order.class);
+    private final BaseDao<Bill, Long> billDao = new BaseDao<>(Bill.class);
     private final Random random = new Random();
 
     public Bill createOrderAndBill(Cart cart, String customerIdentifier, String paymentMethod) {
@@ -41,11 +44,11 @@ public class OrderService {
             if (item != null && item.getProduct() != null) {
                 Product prod = item.getProduct();
                 if (prod.getId() == null) {
-                    Product existing = productRepository.findByCode(prod.getCode()).orElse(null);
+                    Product existing = productDao.findByCode(prod.getCode()).orElse(null);
                     if (existing != null) {
                         prod = existing;
                     } else {
-                        productRepository.save(prod);
+                        productDao.save(prod);
                     }
                 }
 
@@ -62,7 +65,7 @@ public class OrderService {
             }
         }
 
-        boolean orderSaved = orderRepository.save(order);
+        boolean orderSaved = orderDao.save(order);
         if (!orderSaved) {
             System.err.println("[OrderService] Failed to save order");
             return null;
@@ -79,7 +82,7 @@ public class OrderService {
                 .paymentStatus("PAID")
                 .build();
 
-        boolean billSaved = billRepository.save(bill);
+        boolean billSaved = billDao.save(bill);
         if (!billSaved) {
             System.err.println("[OrderService] Failed to save bill");
         }

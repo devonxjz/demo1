@@ -1,7 +1,7 @@
 package dev.services;
 
+import dev.dao.UserDao;
 import dev.models.User;
-import dev.repositories.UserRepository;
 import dev.utils.PasswordUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,8 @@ class AuthServiceTest {
     void setUp() {
         database.clear();
 
-        // Sử dụng FakeUserRepository để kiểm thử unit test độc lập không phụ thuộc DB mạng
-        UserRepository fakeRepo = new UserRepository() {
+        // Sử dụng FakeUserDao triển khai UserDao để kiểm thử unit test độc lập không phụ thuộc DB mạng
+        UserDao fakeDao = new UserDao() {
             @Override
             public boolean save(User entity) {
                 if (entity.getId() == null) {
@@ -30,6 +30,18 @@ class AuthServiceTest {
                 }
                 database.add(entity);
                 return true;
+            }
+
+            @Override
+            public Optional<User> findById(Long id) {
+                return database.stream()
+                        .filter(u -> u.getId() != null && u.getId().equals(id))
+                        .findFirst();
+            }
+
+            @Override
+            public List<User> findAll() {
+                return new ArrayList<>(database);
             }
 
             @Override
@@ -64,7 +76,7 @@ class AuthServiceTest {
             }
         };
 
-        authService = new AuthService(fakeRepo);
+        authService = new AuthService(fakeDao);
     }
 
     @Test

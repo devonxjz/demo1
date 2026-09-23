@@ -12,7 +12,6 @@ public class JpaUtil {
     public static synchronized EntityManagerFactory getEntityManagerFactory() {
         if (emf == null || !emf.isOpen()) {
             try {
-                DatabaseInitializer.initialize();
                 SupabaseConfig cfg = SupabaseConfig.getInstance();
                 emf = new Configuration()
                         .addAnnotatedClass(User.class)
@@ -20,10 +19,16 @@ public class JpaUtil {
                         .addAnnotatedClass(dev.models.Order.class)
                         .addAnnotatedClass(dev.models.OrderDetail.class)
                         .addAnnotatedClass(dev.models.Bill.class)
+                        .setProperty("hibernate.connection.provider_class", "org.hibernate.hikaricp.internal.HikariCPConnectionProvider")
                         .setProperty("jakarta.persistence.jdbc.driver", "org.postgresql.Driver")
                         .setProperty("jakarta.persistence.jdbc.url", cfg.getJdbcUrl())
                         .setProperty("jakarta.persistence.jdbc.user", cfg.getDbUsername())
                         .setProperty("jakarta.persistence.jdbc.password", cfg.getDbPassword())
+                        .setProperty("hibernate.hikari.minimumIdle", cfg.getHikariMinimumIdle())
+                        .setProperty("hibernate.hikari.maximumPoolSize", cfg.getHikariMaximumPoolSize())
+                        .setProperty("hibernate.hikari.idleTimeout", cfg.getHikariIdleTimeout())
+                        .setProperty("hibernate.hikari.connectionTimeout", cfg.getHikariConnectionTimeout())
+                        .setProperty("hibernate.hikari.maxLifetime", cfg.getHikariMaxLifetime())
                         .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
                         .setProperty("hibernate.boot.allow_jdbc_metadata_access", "false")
                         .setProperty("hibernate.hbm2ddl.auto", "none")

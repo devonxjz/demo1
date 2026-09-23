@@ -11,5 +11,7 @@ class SupabaseConfigTest {
         SupabaseConfig config = SupabaseConfig.getInstance();
         assertNotNull(config);
         assertNotNull(config.getJdbcUrl());
+        assertNotNull(config.getHikariMinimumIdle());
+        assertNotNull(config.getHikariMaximumPoolSize());
     }
 }
