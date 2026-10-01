@@ -1,7 +1,9 @@
 package dev.services;
 
 import dev.dao.BaseDao;
+import dev.dao.OrderDao;
 import dev.dao.ProductDao;
+
 import dev.models.Bill;
 import dev.models.Cart;
 import dev.models.LineItem;
@@ -11,6 +13,7 @@ import dev.models.Product;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -19,17 +22,28 @@ import java.util.Random;
 public class OrderService {
 
     private final ProductDao productDao = new ProductDao();
-    private final BaseDao<Order, Long> orderDao = new BaseDao<>(Order.class);
+    private final OrderDao orderDao = new OrderDao();
     private final BaseDao<Bill, Long> billDao = new BaseDao<>(Bill.class);
     private final Random random = new Random();
 
+    public Optional<Order> getOrderByOrderNumber(String orderNumber) {
+        return orderDao.findByOrderNumber(orderNumber);
+    }
+
     public Bill createOrderAndBill(Cart cart, String customerIdentifier, String paymentMethod) {
+        return createOrderAndBill(cart, customerIdentifier, paymentMethod, null);
+    }
+
+    public Bill createOrderAndBill(Cart cart, String customerIdentifier, String paymentMethod, String customOrderNumber) {
         if (cart == null || cart.getItems().isEmpty()) {
             return null;
         }
 
         // 1. Tạo đơn hàng Order
-        String orderNumber = "ORD-" + System.currentTimeMillis() + "-" + (random.nextInt(900) + 100);
+        String orderNumber = (customOrderNumber != null && !customOrderNumber.isBlank())
+                ? customOrderNumber
+                : "ORD-" + System.currentTimeMillis() + "-" + (random.nextInt(900) + 100);
+
         Order order = Order.builder()
                 .orderNumber(orderNumber)
                 .customerIdentifier(customerIdentifier != null ? customerIdentifier : "Guest")

@@ -16,8 +16,13 @@
         <c:choose>
             <c:when test="${not empty bill}">
                 <div class="alert-success">
-                    <strong>Thanh toán thành công! (Mock Payment)</strong>
+                    <strong>Thanh toán thành công! (${not empty bill.paymentMethod ? bill.paymentMethod : 'Đã thanh toán'})</strong>
                     <p>Đơn hàng và hóa đơn của bạn đã được ghi nhận vào cơ sở dữ liệu PostgreSQL (Supabase).</p>
+                    <c:if test="${not empty orderEmailSentTo}">
+                        <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;">
+                            ✉️ Email xác nhận <strong>"Thank for orders"</strong> đã được gửi tới địa chỉ: <strong>${orderEmailSentTo}</strong>
+                        </p>
+                    </c:if>
                 </div>
 
                 <h1>Hóa đơn thanh toán (Bill)</h1>

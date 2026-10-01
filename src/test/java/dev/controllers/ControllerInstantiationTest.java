@@ -19,5 +19,8 @@ class ControllerInstantiationTest {
 
         LogoutServlet logoutServlet = new LogoutServlet();
         assertNotNull(logoutServlet);
+
+        OrderServlet orderServlet = new OrderServlet();
+        assertNotNull(orderServlet);
     }
 }

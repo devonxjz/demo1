@@ -10,6 +10,7 @@
             <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link">Survey</a>
             <a href="${pageContext.request.contextPath}/order" class="nav-link">Order / Shop</a>
             <a href="${pageContext.request.contextPath}/download" class="nav-link">Download</a>
+            <a href="${pageContext.request.contextPath}/vnpay_pay.jsp" class="nav-link" title="Cổng thanh toán VNPAY Demo">VNPAY</a>
             <a href="${pageContext.request.contextPath}/index.jsp" class="nav-link refresh-link" title="Làm mới - Trở về trang chủ">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 3px;">
                     <path d="M23 4v6h-6"></path>

@@ -8,12 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Lớp cơ sở cung cấp các thao tác CRUD chung bằng JPA EntityManager
- *
- * @param <T>  Kiểu Entity
- * @param <ID> Kiểu khóa chính (Primary Key)
- */
+
 public class BaseDao<T, ID> {
 
     protected final Class<T> entityClass;

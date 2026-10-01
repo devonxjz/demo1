@@ -81,8 +81,46 @@
                     </tfoot>
                 </table>
 
+                <!-- Thông tin người nhận email xác nhận đơn hàng -->
+                <div class="checkout-email-card" style="margin: 20px 0; padding: 16px 20px; background: #ffffff; border: 1px solid #d0e7e9; border-left: 4px solid #007b85; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                    <c:choose>
+                        <c:when test="${not empty syncedUser and not empty syncedUser.email}">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="font-size: 24px;">📧</div>
+                                <div>
+                                    <div style="font-weight: 600; color: #007b85; font-size: 15px;">Email nhận thông báo đặt hàng ("Thank for orders")</div>
+                                    <div style="font-size: 13.5px; color: #444; margin-top: 3px;">
+                                        Đang đăng nhập: <strong>${syncedUser.displayName}</strong> &lt;<strong>${syncedUser.email}</strong>&gt;
+                                    </div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 2px;">
+                                        Hệ thống sẽ tự động gửi email cảm ơn & chi tiết đơn hàng đến hộp thư này ngay sau khi hoàn tất.
+                                    </div>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div>
+                                <label for="checkoutGuestEmail" style="display: block; font-weight: 600; color: #007b85; font-size: 15px; margin-bottom: 6px;">
+                                    📧 Email nhận xác nhận đơn hàng ("Thank for orders")
+                                </label>
+                                <p style="font-size: 13px; color: #555; margin: 0 0 10px 0;">
+                                    Bạn đang đặt hàng với tư cách khách vãng lai. Vui lòng nhập địa chỉ email để nhận thông báo và hóa đơn:
+                                </p>
+                                <div style="max-width: 420px;">
+                                    <input type="email" id="checkoutGuestEmail" name="guestEmailInput"
+                                           value="${not empty userCookieEmail ? userCookieEmail : ''}"
+                                           placeholder="vi-du@domain.com"
+                                           class="form-control"
+                                           style="width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;"
+                                           oninput="document.getElementById('checkoutFormEmail').value = this.value;">
+                                </div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
                 <!-- Các nút hành động chính -->
-                <div class="cart-actions">
+                <div class="cart-actions" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: flex-end;">
                     <a href="${pageContext.request.contextPath}/order" class="btn-link">Tiếp tục mua hàng</a>
                     
                     <form action="${pageContext.request.contextPath}/order" method="post" class="inline-form">
@@ -90,11 +128,21 @@
                         <button type="submit" class="btn-link btn-secondary" onclick="return confirm('Bạn có chắc muốn làm trống giỏ hàng?');">Làm trống giỏ hàng</button>
                     </form>
 
-                    <form action="${pageContext.request.contextPath}/order" method="post" class="inline-form">
+                    <form action="${pageContext.request.contextPath}/order" method="post" class="inline-form" id="checkoutForm" onsubmit="var g = document.getElementById('checkoutGuestEmail'); if (g) { document.getElementById('checkoutFormEmail').value = g.value.trim(); } return true;">
                         <input type="hidden" name="action" value="mockPayment">
-                        <button type="submit" class="btn-primary btn-checkout">Thanh toán (Mock Payment)</button>
+                        <input type="hidden" name="email" id="checkoutFormEmail" value="${not empty syncedUser and not empty syncedUser.email ? syncedUser.email : (not empty userCookieEmail ? userCookieEmail : '')}">
+                        <button type="submit" class="btn-secondary btn-checkout" style="background: #6c757d; color: #fff; padding: 10px 18px; border-radius: 4px; border: none; cursor: pointer;">Thanh toán thử nghiệm (Mock)</button>
+                    </form>
+
+                    <form action="${pageContext.request.contextPath}/order" method="post" class="inline-form" id="vnpayCheckoutForm" onsubmit="var g = document.getElementById('checkoutGuestEmail'); if (g) { document.getElementById('vnpayFormEmail').value = g.value.trim(); } return true;">
+                        <input type="hidden" name="action" value="vnpayPayment">
+                        <input type="hidden" name="email" id="vnpayFormEmail" value="${not empty syncedUser and not empty syncedUser.email ? syncedUser.email : (not empty userCookieEmail ? userCookieEmail : '')}">
+                        <button type="submit" class="btn-primary btn-checkout" style="background: #005baa; color: #fff; font-weight: 600; padding: 10px 20px; border-radius: 4px; border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,91,170,0.3);">
+                            💳 Thanh toán qua VNPAY
+                        </button>
                     </form>
                 </div>
+
             </c:otherwise>
         </c:choose>
 

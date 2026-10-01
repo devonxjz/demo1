@@ -12,23 +12,20 @@ public class JpaUtil {
     public static synchronized EntityManagerFactory getEntityManagerFactory() {
         if (emf == null || !emf.isOpen()) {
             try {
-                SupabaseConfig cfg = SupabaseConfig.getInstance();
+                DatabaseConfig dbCfg = DatabaseConfig.getInstance();
+                HikariCPConfig poolCfg = HikariCPConfig.getInstance();
                 emf = new Configuration()
                         .addAnnotatedClass(User.class)
                         .addAnnotatedClass(dev.models.Product.class)
                         .addAnnotatedClass(dev.models.Order.class)
                         .addAnnotatedClass(dev.models.OrderDetail.class)
                         .addAnnotatedClass(dev.models.Bill.class)
+                        .addProperties(poolCfg.getProperties())
                         .setProperty("hibernate.connection.provider_class", "org.hibernate.hikaricp.internal.HikariCPConnectionProvider")
                         .setProperty("jakarta.persistence.jdbc.driver", "org.postgresql.Driver")
-                        .setProperty("jakarta.persistence.jdbc.url", cfg.getJdbcUrl())
-                        .setProperty("jakarta.persistence.jdbc.user", cfg.getDbUsername())
-                        .setProperty("jakarta.persistence.jdbc.password", cfg.getDbPassword())
-                        .setProperty("hibernate.hikari.minimumIdle", cfg.getHikariMinimumIdle())
-                        .setProperty("hibernate.hikari.maximumPoolSize", cfg.getHikariMaximumPoolSize())
-                        .setProperty("hibernate.hikari.idleTimeout", cfg.getHikariIdleTimeout())
-                        .setProperty("hibernate.hikari.connectionTimeout", cfg.getHikariConnectionTimeout())
-                        .setProperty("hibernate.hikari.maxLifetime", cfg.getHikariMaxLifetime())
+                        .setProperty("jakarta.persistence.jdbc.url", dbCfg.getJdbcUrl())
+                        .setProperty("jakarta.persistence.jdbc.user", dbCfg.getDbUsername())
+                        .setProperty("jakarta.persistence.jdbc.password", dbCfg.getDbPassword())
                         .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
                         .setProperty("hibernate.boot.allow_jdbc_metadata_access", "false")
                         .setProperty("hibernate.hbm2ddl.auto", "none")
